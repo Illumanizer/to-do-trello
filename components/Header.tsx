@@ -20,7 +20,7 @@ const Header = () => {
 
         {/* Logo */}
         <Image
-          src="https://prod.cloud.rockstargames.com/crews/sc/0412/11026292/publish/emblems/bdab0622822cde7cb25031ccd501f886cbc382be_512.png"
+          src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTEwL3JtNDY3YmF0Y2gzLWhhbmQtMDA1XzEucG5n.png"
           alt="logo"
           width={100}
           height={90}
