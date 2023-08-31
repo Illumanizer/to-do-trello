@@ -1,10 +1,9 @@
 "use client";
-
 import { useBoardStore } from "@/store/BoardStore";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "lucide-react";
 
-const types: any = [
+const types = [
   {
     id: "todo",
     name: "Todo",
@@ -35,7 +34,7 @@ function TaskTypeRadioGroup() {
       <div className="mx-auto w-full max-w-md">
         <RadioGroup value={newTaskType} onChange={(e) => setNewTaskType(e)}>
           <div className="space-y-2">
-            {types.map((type: any) => {
+            {types.map((type) => (
               <RadioGroup.Option
                 key={type.id}
                 value={type.id}
@@ -84,8 +83,8 @@ function TaskTypeRadioGroup() {
                     </div>
                   </>
                 )}
-              </RadioGroup.Option>;
-            })}
+              </RadioGroup.Option>
+            ))}
           </div>
         </RadioGroup>
       </div>
