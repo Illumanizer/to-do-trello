@@ -1,17 +1,15 @@
 "use client";
 import { useBoardStore } from "@/store/BoardStore";
-// import { createContext } from 'react'
-
+import { UserButton } from "@clerk/nextjs";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import React from "react";
-import Avatar from "react-avatar";
 
 const Header = () => {
-    const [searchString,setSearchString]=useBoardStore((state)=>[
-        state.searchString,
-        state.setSearchString,
-    ])
+  const [searchString, setSearchString] = useBoardStore((state) => [
+    state.searchString,
+    state.setSearchString,
+  ]);
   return (
     <header>
       <div className="flex flex-col md:flex-row items-center p-5 bg-gray-500/10 rounded-b-2xl">
@@ -20,7 +18,7 @@ const Header = () => {
 
         {/* Logo */}
         <Image
-          src="https://prod.cloud.rockstargames.com/crews/sc/0412/11026292/publish/emblems/bdab0622822cde7cb25031ccd501f886cbc382be_512.png"
+          src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTEwL3JtNDY3YmF0Y2gzLWhhbmQtMDA1XzEucG5n.png"
           alt="logo"
           width={100}
           height={90}
@@ -36,7 +34,7 @@ const Header = () => {
               type="text"
               placeholder="Search"
               className="flex-1 outline-none p-2"
-              onChange={(e)=> setSearchString(e.target.value)}
+              onChange={(e) => setSearchString(e.target.value)}
             />
             <button hidden type="submit">
               Search
@@ -44,7 +42,7 @@ const Header = () => {
           </form>
 
           {/* Avatar */}
-          <Avatar name="Pranav Singh" color="#184563" size="50" round />
+          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </header>

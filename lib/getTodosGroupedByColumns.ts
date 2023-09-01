@@ -1,12 +1,27 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { database } from "@/appwrite"
+import { Query } from "appwrite";
 
-const getTodosGroupedByColumns = async () => {
+interface getTodosGroupedByColumnsprops {
+    userId: string | null
+}
+
+const getTodosGroupedByColumns = async ({
+    userId
+}: getTodosGroupedByColumnsprops) => {
+    
+   
     const data=await database.listDocuments(
         process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
-        process.env.NEXT_PUBLIC_APPWRITE_TODO_COLLECTION_ID! 
+        process.env.NEXT_PUBLIC_APPWRITE_TODO_COLLECTION_ID!,
+        [
+           Query.equal("uid",userId!),
+            Query.orderDesc("$createdAt")
+        ]
     );
     
     const todos=data.documents;
+
 
     const columns=todos.reduce((acc,todo)=>{
         if(!acc.get(todo.status)){
@@ -18,6 +33,7 @@ const getTodosGroupedByColumns = async () => {
         acc.get(todo.status)!.todos.push({
             $id:todo.$id,
             $createdAt:todo.$createdAt,
+            uid:todo.uid,
             title:todo.title,
             status:todo.status,
             ...(todo.image && {image:JSON.parse(todo.image)})

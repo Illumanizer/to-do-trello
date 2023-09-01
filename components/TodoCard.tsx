@@ -10,6 +10,7 @@ type Props = {
   todo: Todo;
   index: number;
   id: TypedColumn;
+  userId: string | null;
   innerRef: (element: HTMLElement | null) => void;
   draggableProps: DraggableProvidedDraggableProps;
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
@@ -21,6 +22,7 @@ const TodoCard = ({
   id,
   innerRef,
   draggableProps,
+  userId,
   dragHandleProps,
 }: Props) => {
   const deleteTask = useBoardStore((state) => state.deleteTask);
@@ -35,7 +37,8 @@ const TodoCard = ({
       <div className="flex justify-between items-center p-2">
         <p>{todo.title}</p>
         <button
-          onClick={() => deleteTask(index, todo, id)}
+          title="Delete task"
+          onClick={() => deleteTask(userId, index, todo, id)}
           className="text-red-500 hover:text-red-600"
         >
           <XCircleIcon className="ml-5 h-8 w-8" />
