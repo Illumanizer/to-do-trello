@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ["prod.cloud.rockstargames.com"]
-    },
-    experimental: {
-        serverActions: true,
-    },
+        domains: ["images.rawpixel.com"]
+    }
 }
 
 module.exports = nextConfig
