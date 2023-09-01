@@ -12,24 +12,34 @@ function Modal() {
     state.closeModal,
   ]);
 
-  const [addTask,newTaskInput,newTaskType, setNewTaskInput] = useBoardStore((state) => [
-    state.addTask,
-    state.newTaskInput,
-    state.newTaskType,
-    state.setNewTaskInput,
-  ]);
+  const [addTask, newTaskInput, setNewTaskInput, newTaskType] = useBoardStore(
+    (state) => [
+      state.addTask,
+      state.newTaskInput,
+      state.setNewTaskInput,
+      state.newTaskType,
+    ]
+  );
 
-  const handleSubmit=(e:FormEvent<HTMLFormElement>)=>{
+  var userId = useBoardStore((state) => state.userId);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(!newTaskInput) return;
-    addTask(newTaskInput,newTaskType)
+    if (!newTaskInput) return;
+
+    addTask(userId, newTaskInput, newTaskType);
     closeModal();
-  }
+  };
 
   return (
     // Use the `Transition` component at the root level
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="form" onSubmit={handleSubmit} className="relative z-10" onClose={closeModal}>
+      <Dialog
+        as="form"
+        className="relative z-10"
+        onSubmit={handleSubmit}
+        onClose={closeModal}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -70,10 +80,15 @@ function Modal() {
                   />
                 </div>
 
-                <TaskTypeRadioGroup/>
-
-                <div>
-                  <button type="submit" disabled={!newTaskInput} className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200` focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:bg-gray100 disabled:text-gray-300 disabled:cursor-not-allowed">Add Task</button>
+                <TaskTypeRadioGroup />
+                <div className="mt-4 flex items-center justify-end">
+                  <button
+                    type="submit"
+                    disabled={!newTaskInput}
+                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Add Task
+                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

@@ -12,6 +12,7 @@ interface Column{
 interface Todo{
     $id:string;
     $createdAt:string;
+    uid: string | null;
     title:string;
     status:TypedColumn;
     image?:Image;
