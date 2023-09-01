@@ -1,4 +1,4 @@
-import { database, storage } from "@/appwrite";
+import { ID, database, storage } from "@/appwrite";
 import getTodosGroupedByColumns from "@/lib/getTodosGroupedByColumns";
 import { create } from "zustand";
 
@@ -34,45 +34,6 @@ export const useBoardStore = create<BoardState>((set, get) => ({
     set({ board });
   },
   setBoardState: (board) => set({ board }),
-
-  addTask:async (todo:string,columnId:TypedColumn)=>{
-    const {$id}=await database.createDocument(
-      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
-      process.env.NEXT_PUBLIC_APPWRITE_TODO_COLLECTION_ID!,
-      ID.unique(),
-      {
-        title:todo,
-        status:columnId,
-      }
-    )
-    set({newTaskInput:""});
-    set((state)=>{
-      const newColumns=new Map(state.board.columns);
-      const newTodo:Todo={
-        $id,
-        $createdAt:new Date().toISOString(),
-        title:todo,
-        status:columnId,
-      }
-      const column=newColumns.get(columnId);
-      if(!column){
-        newColumns.set(
-          columnId,
-          {
-            id:columnId,
-            todos:[newTodo],
-          }
-          )
-      }else{
-        newColumns.get(columnId)?.todos.push(newTodo);
-      }
-      return{
-        board:{
-          columns:newColumns,
-        }
-      }
-    })
-  },
 
 
   deleteTask: async (userId,taskIndex, todo, id) => { 
