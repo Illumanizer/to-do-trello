@@ -18,12 +18,14 @@ const Board = ({ userId }: BoardProps) => {
       state.setUserId,
     ]);
 
+  //board state will be refreshed on occassion of changing any todo or changing user
   useEffect(() => {
     getBoard(userId);
 
     setUserId(userId);
   }, [getBoard, userId, setUserId]);
 
+  // func handles what happens when todo is dragged
   const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
 

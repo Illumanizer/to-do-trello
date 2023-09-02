@@ -30,6 +30,7 @@ function Modal() {
     addTask(userId, newTaskInput, newTaskType);
     closeModal();
   };
+  // headless UI
 
   return (
     // Use the `Transition` component at the root level
